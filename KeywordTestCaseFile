@@ -1,0 +1,181 @@
+***keywords***
+Launch Lato URL
+  Set Environment Variable   webdriver.chrome.driver  C:/Users/ganesh/Downloads/chromedriver_win32/chromedriver.exe
+  Open Browser  ${url}   browser=Chrome
+  Sleep  2
+  
+Launch Lato URL in IE 
+  #Set Environment Variable    no_proxy    127.0.0.1
+  Set Environment Variable    webdriver.ie.driver    C:/Python27/Scripts/iexplore.exe
+  Open Browser  ${url}   browser=ie
+  Sleep  2
+
+Launch Lato URL in Firefox
+  Set Environment Variable   webdriver.firefox.driver  C:/Program Files/Mozilla Firefox/firefox.exe
+    Open Browser  https://www.google.fi/?gfe_rd=cr&ei=eZ8RWY7ZGY-r8weZo5_wBA&gws_rd=ssl   ff
+    sleep  3
+    
+Enter authentication details
+    [Documentation]   Login into the Lato Site 
+    Input text  ${Username}   testautomation@lato.com
+    Input text  ${Password}   Lealti0ga!
+    Click button  Login 
+    sleep  3
+    Set Window Size	${800}	${700}	
+    
+    
+Change Password
+    [Documentation]   Change Password 
+    Sleep  2
+    Input text  ${OldPassword}  Lealti0g3a!
+    Input text  ${ChangePasswordFormEnterNewPassword}   Ela$ito06
+    Input text  ${ChangePasswordFormConfirmNewPassword}  Ela$ito06
+    Click Element  //input[@value="Change"]
+    
+Create New Person
+   [Documentation]   Create New Person
+   ${index}=  Set Variable  1
+  :FOR  ${index}   IN RANGE   2
+  \  Continue For Loop If	   '${index}'>'2'
+  \  Mouse Over   id=personal
+  \  Click Link   id=personalLink2
+  \  Select Frame  name=full_content
+  \  sleep  5
+  \  Click Image   /images/NeoStrategy/new profile.png
+  \  Select Frame  id=single_core_content
+  \  Sleep  10
+  \  Input Text   ${NewUsername}   ViratKohli${index}@lato.com
+  \  Input Text   ${NewPassword}   Lealti0ga!${index}
+  \  Input Text   ${NewConformPassword}   Lealti0ga!${index}
+  \  Input Text   ${NewPersonSurname}   Virat${index}
+  \  Input Text   ${NewPersonFirstname}  Kohli${index}
+  \  Input Text   ${NewPersonEmailAddress}  ViratKohli${index}@lato.com
+  \  Click Element  xpath=//input[@id="save_button"]
+  \  Sleep  3
+  \  ${index}=  Set Variable  ${index + 1} 
+  \  Unselect Frame
+  \  Unselect Frame
+ 
+Min MAx Goal
+  [Documentation]  Create Goal With MinMaxGoal
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Input text  ${GoalId}  MinMax Goal Test 
+  Input text  ${GoalDescription}  The responsible people will create related goals and actions and choose KPI's to follow them. Share them within the organization in easily done in LATO. 
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"] 
+     #table[@id="org_editor_table"]/tr[@id="goal_status_row"]/table[@id="goal_status_tab"]   #tr[@id="metric_trend_tr"]/img[@id="trend"]
+    Sleep  2s
+  
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  Sleep  2s
+  Select From List   xpath=//select[@id="metric_type"]    Min-Max
+  Input Text   ${IndicatorName}    MyOWnIndicator
+  Input Text   ${KPIIndicatorMinValue}  10
+  Input Text   ${KPIIndicatorMaxValue}  40
+  Input text  ${KPIIndicatorAchievedValue}  12
+
+On Off Metric Type 
+  [Documentation]  Create goal with On Off Metric Type
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r1"]  
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773664"]  #
+  Input text  ${GoalId}  On Off Goal Test
+  Input text  ${GoalDescription}  This is my first robot automation test case
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  Select From List   xpath=//select[@id="metric_type"]    On-Off
+  Click Element  //label[@class="onoff_box"]   
+  Input Text  ${ONOff Target Value}  20
+  Input Text  ${ONOff achieved Value}  2.2
+
+Descriptive Metric Type
+  [Documentation]  Create goal with Descriptive Metric Type
+  Sleep  3
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773670"]
+  Input text  ${GoalId}  Descriptive Metric Type
+  Input text  ${GoalDescription}  This is my first robot automation test case
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  
+  Select From List   xpath=//select[@id="metric_type"]    Descriptive
+  Select From List   xpath=//select[@id="desc_value"]    Impossible
+    
+Remove Node
+  [Documentation]  Remove Cascade goal
+  Sleep  3  
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible  xpath=//table[contains(@id,'list')]      
+  Sleep  2
+  Click Element   xpath=//table[@class="listGoal"]/tbody/tr[10]      
+  Sleep  2
+  Click Image   /images/NeoStrategy/minibuttons/trash_e.gif
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  Click Button  YES
+  Sleep  2
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-alert in"]
+  Click Button  OK
+    
+
+Goals Count
+  Sleep  3s
+  [Documentation]  we get know the count of goals
+  ${GetGoalsCount}=  Get Matching Xpath Count  //table[@class="listGoal"]/tbody/tr/td[contains(@style,'width:100%')]
+  ${GetGoalsCount}=  Convert To string	${GetGoalsCount}
+  ${GetGoalsCount}=  Set Variable  ${GetGoalsCount}
+  Log To Console   ${GetGoalsCount}
+
+Login New Person
+  Input text  ${Username}   Aliya142 Balla @lato.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  
+  
+  
+
+#Save Goal 
+  #[Documentation]   Save goal  
+  #Click Element  //input[@value="Save"]
+  #Unselect Frame
+  #Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  #Click Button  OK
+  #Sleep  2
+  #Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-alert in"]
+  
+  #Click Button  OK 
+  #Sleep  7
+
+No Goal Metric Type
+  [Documentation]  Create goal with No Goal Metric Type
+  Sleep  3
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773673"]
+  Input text  ${GoalId}  NoGoal Metric Type
+  Input text  ${GoalDescription}  This is my first Robot frame work automation test case with Mulitiple metric Types
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    #table[@id="org_editor_table"]/tr[@id="goal_status_row"]/table[@id="goal_status_tab"]   #tr[@id="metric_trend_tr"]/img[@id="trend"]
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Select From List   xpath=//select[@id="metric_type"]    No Goal
+  
+Get Goal Seudo number
+  [Documentation]  Get goal seudo number for goal comparision
+  ${GoalNameForComparision}=  Get Text   id=pseudo_13940128
+  
+
+Upload File
+  Sleep  3
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink3 
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Click Link  Organization Documents
+  Select Frame  id=single_core_content
+  Sleep  2
+  Choose File  xpath=//input[@name="p_filename"]     C:/Users/ganesh/Desktop/lato.PNG
+  Sleep  2
+  Click Element   xpath=//input[@value="Upload"]
+  Unselect Frame
+  Unselect Frame
+
+
