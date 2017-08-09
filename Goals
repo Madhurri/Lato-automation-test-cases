@@ -1,0 +1,289 @@
+***Settings***
+
+Library  Selenium2Library
+Library  OperatingSystem
+Library  BuiltIn
+Library  String
+#Library  SwingLibrary
+Resource  TestcaseVariables/variableTestFile.txt
+Resource  TestCaseKeywords/KeywordTestFiles.txt
+Library           Collections
+
+#***Variables***
+#${Username}  id=p_user_name
+#${Password}  id=p_user_pwd
+#${url}  https://cloud.latotools.com/demo/lato.platform.v3
+#${Goal}  id=title
+
+
+
+***Test Cases***
+
+Personal Goals TestCase
+  [Documentation]   Create New Goal
+  [Tags]  CreateNewGoal
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details
+  
+  ${index}=  Set Variable  '1'
+  :FOR  ${index}   IN RANGE   6
+  \  Continue For Loop If	   '${index}'>'6'
+  \  #Sleep  5
+  \  Mouse Over   id=goalsText
+  #\  Click Link   Goal Editor
+  \  Sleep  5
+  \  Click Link  id=goalsLink1
+  \  Select Frame  id=full_content
+  \  Click Element  //img[@title='New Goal'] 
+  \  Unselect Frame
+  \  Select Frame  id=popUpFrame    
+  \  Click Element  id=bsc_dimension 
+  \  Wait Until Element Is Visible  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  \  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  \  Input text  ${GoalId}  MinMax Goal Test ${index}
+  \  Input text  ${GoalDescription}  This is my first robot automation test case 
+  \  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    #table[@id="org_editor_table"]/tr[@id="goal_status_row"]/table[@id="goal_status_tab"]   #tr[@id="metric_trend_tr"]/img[@id="trend"]
+  \  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  \  Select From List   xpath=//select[@id="metric_type"]    Min-Max
+  \  Input Text   ${IndicatorName}    MyOWnIndicator
+  \  Input Text   ${KPIIndicatorMinValue}  10
+  \  Input Text   ${KPIIndicatorMaxValue}  40
+  \  Input text  ${KPIIndicatorAchievedValue}  12
+      \  Sleep   3
+  
+  \  Capture Page Screenshot
+  \  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  
+  \  Click Element  xpath=//img[@src="/images/NeoStrategy/facelift/ic_arrow_grey_NE.png"]   
+  \  Click Image  /images/NeoStrategy/facelift/priority_low.png
+  \  Sleep   10
+  \  Click Element  //input[@value="Save"]
+  \  Unselect Frame
+  \  Sleep  3
+   
+  \  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  \  Click Button  OK
+  \  sleep  3
+    \  Click Button  OK 
+    \  Sleep   3
+   \  ${index}=  Set Variable  ${index + 1} 
+   
+  
+  
+ Diff Types of Metric Type
+  [Documentation]  Create Goal With Diff Types of Metric Type
+  [Tags]  DiffTypeMericType
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  ${Count}=  Set Variable  1
+  #${index}=  Set Variable   0
+  :FOR  ${Count}   IN RANGE   4
+  #\  ${MinMAXNewNumber}=  Set Variable  ${Count}
+  #\  ${OnOffNewNumber}=  Set Variable  ${MinMAXNewNumber+1}
+  #\  ${DescriptiveNewNumber}=  Set Variable  ${OnOffNewNumber+2}
+  #\  ${NogoalNewNumber}=  Set Variable  ${DescriptiveNewNumber+3}
+  \  Continue For Loop If	   '${Count}'>'4'
+    
+  \  Select Frame  id=full_content
+  \  Click Element  //img[@title='New Goal'] 
+  \  Unselect Frame
+  \  Select Frame  id=popUpFrame    
+  \  Click Element  id=bsc_dimension 
+  \  Sleep  5
+  \  
+  
+  \  ${MinMAXNewNumber}=  Set Variable  0
+  
+  \  ${OnOffNewNumber}=  Set Variable   1
+  \  ${DescriptiveNewNumber}=  Set Variable    2
+  \  ${NogoalNewNumber}=  Set Variable  3
+  \  RUN KEYWORD IF  '${Count}'=='${MinMAXNewNumber}'   Min MAx Goal  
+  \  Sleep  5
+  \  RUN KEYWORD IF	  '${Count}'=='${OnOffNewNumber}'     On Off Metric Type
+  \  RUN KEYWORD If   '${Count}'=='${DescriptiveNewNumber}'   Descriptive Metric Type
+  \  RUN KEYWORD If    '${Count}'=='${NogoalNewNumber}'    No Goal Metric Type
+  \
+
+  \  Sleep   3
+  \  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  
+  \  Click Element  xpath=//img[@src="/images/NeoStrategy/facelift/ic_arrow_grey_NE.png"]   
+  \  Click Image  /images/NeoStrategy/facelift/priority_low.png
+  \  Sleep   4
+  \  Click Element  //input[@value="Save"]
+  \  Unselect Frame
+  \  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  \  Click Button  YES
+  \  Sleep  4
+  \  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-alert in"]
+  
+  \  Click Button  OK 
+  #\  ${Count}=  Set Variable  ${count + 1} 
+    \  Sleep  5
+    #\  ${index}=  Set Variable  ${index + 1}
+  \  ${Count}=  Set Variable  ${Count + 1}
+  
+Min MAx Goal
+  [Tags] MinMax Goal
+  Min MAx Goal
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  Click Element  xpath=//img[@src="/images/NeoStrategy/facelift/ic_arrow_grey_NE.png"]   
+  Click Image  /images/NeoStrategy/facelift/priority_low.png
+  Sleep   4
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  Click Button  YES
+  Sleep  4
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-alert in"]
+  Click Button  OK 
+  
+  
+  
+Remove Goal
+  [Documentation]   Delete Goal
+  [Tags]  DeleteGoal
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details
+  Sleep  5s
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame  id=full_content
+  Select Frame   id=single_core_content
+  ${GetGoalsCount}=  Get Matching Xpath Count  //table[@class="listGoal"]/tbody/tr/td[contains(@style,'width:100%')]
+  ${GetGoalsCount}=  Convert To Integer	${GetGoalsCount}
+  ${GetGoalsCount}=  Set Variable  ${GetGoalsCount} 
+  Log To Console   Number Of Goals in Goals Editor Page ${GetGoalsCount}
+  Unselect Frame
+  Unselect Frame
+  ${count}=  Set Variable  1
+  :FOR  ${count}  IN RANGE  ${GetGoalsCount}
+  
+  \  Select Frame  id=full_content
+  \  Select Frame   id=single_core_content
+  
+  \  Click Image   /images/NeoStrategy/minibuttons/trash_e.gif
+  \  Sleep  5
+  \  Unselect Frame
+  \  Unselect Frame
+    \  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  \  Click Button  YES
+  
+  \  Sleep  4
+  \  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-alert in"]
+  
+  \  Click Button  OK 
+    \  ${count}=  Set Variable  ${count + 1} 
+  \  Sleep  5
+  #Log To Console   Number Of Goals in Goals Editor Page  ${GetGoalsCount}
+  
+  #Wait Until Element Is Visible   xpath=//form[@id="ajax"]/table[@id="list"]
+  
+  #driver.findElement(By.id("list")).clear();
+  
+    #Sleep  10'
+    
+Goal Edit
+  [Tags]  GoalEditPage
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details
+  Sleep  5s
+  Mouse Over   id=peopleText
+  Click Link  id=personalLink1    #id="goalsLink2"
+  Select Frame  id=full_content
+  #Wait Until Element Is Visible   xpath=//div[@id="single_core_right_div"]
+  Select Frame   id=single_core_content
+  
+  #${GetGoalRow}=  Get Text  id=goalsTab
+  #${GetGoalRownumber}=  Get Substring  ${GetGoalRow}  51   70
+    Sleep  5
+  Wait Until Element Is Visible   xpath=//table[contains(@id,'goalsTab')]
+    Wait Until Element Is Visible  xpath=//table[@id="goalsTab"]/tbody/tr[2]/td[1] 
+  
+  	Click Element    xpath=//table[@id="goalsTab"]/tbody/tr[2]/td[1]/a
+  #Wait Until Element Is Visible  xpath=//table[@id="goalsTab"]/tbody/tr[3]
+  
+  
+  #${item1}    Get Table Cell   xpath=//table[contains(@id,'goalsTab')]  2  1 
+  #${GetGoalRownumber}=   Get Substring  ${item1}   3   
+  #Click Link    ${GetGoalRownumber}
+  #Log To Console     ${GetGoalRownumber}
+  
+  Unselect Frame
+  Unselect Frame
+  Select Frame  id=popUpFrame
+  Sleep  5
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]
+  Click Image   id=goal_description_ 
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773670"]
+  Input text  ${GoalId}   This test is used for goal edit
+  Input text  ${GoalDescription}   Returns the content from a table cell.Row and column number start from 1. Header and footer rows are included in the count. A negative row or column number can be used to get rows counting from the end (end: -1). Cell content from header or footer rows can be obtained with this keyword. To understand how tables are identified, please take a look at the introduction.See Page Should Contain for explanation about loglevel argument.
+  Sleep  5
+  Select From List   xpath=//select[@id="metric_type"]    On-Off
+  Click Element  //label[@class="onoff_box"]    # click on On Off lebel
+  Input Text  ${ONOff Target Value}  40
+  Input Text  ${ONOff achieved Value}  4.2
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  Click Element  xpath=//img[@src="/images/NeoStrategy/facelift/ic_arrow_green_NE.png"]   
+  Click Image  /images/NeoStrategy/facelift/priority_high.png
+  Sleep   4
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  
+Goal Documents & Web URL
+  [Tags]  GoalDocument
+  Launch Lato URL
+  Enter authentication details
+  Sleep  5s
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink3 
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Click Link  Organization Documents
+  Select Frame  id=single_core_content
+  Sleep  2
+  Choose File  xpath=//input[@name="p_filename"]     C:/Users/ganesh/Desktop/lato.PNG
+  Sleep  2
+  Click Element   xpath=//input[@value="Upload"]
+  Unselect Frame
+  Unselect Frame
+  
+    #Sleep  4
+    #Select Frame  id=full_content
+  
+  #Wait Until Element Is Visible   xpath=//div[@id="dualDiv"]/div[@id="single_core_right_div"]/div[@id="divContent"]
+  #Wait Until Element Is Visible   xpath=//div[@id="right_frame"]
+  #Select Frame    xpath=//iframe[@name="single_core_content_right"]
+  #${Goal Document english Translation}    id=i18n_ENG_tiny
+  #Input Text   ${Goal Document english Translation}   This is english translation 
+  #Sleep  1
+  #Click Button  Save
+  #Unselect Frame
+  #Unselect Frame
+  
+  
+  
+  
+  
+  
+  
+   
+  
+  
+  
+  
+  
+ 
+ 
+   
+
+  
+  
+  
