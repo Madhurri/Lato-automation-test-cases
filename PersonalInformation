@@ -1,0 +1,177 @@
+***Settings***
+Library  Selenium2Library
+Library  OperatingSystem
+Library  BuiltIn
+Resource  TestcaseVariables/variableTestFile.txt
+Resource  TestCaseKeywords/KeywordTestFiles.txt
+
+***Test Cases***
+
+Personal Information
+  [Documentation]  Create New User  
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details 
+  ${index}=  Set Variable  1
+  Set suite variable   ${index}
+  :FOR  ${index}   IN RANGE   10
+  \  Continue For Loop If	   '${index}'>'10'
+  \  Mouse Over   id=personal
+  \  Click Link   id=personalLink2
+  \  Select Frame  name=full_content
+  \  sleep  5
+  \  Click Image   /images/NeoStrategy/new profile.png
+  \  Select Frame  id=single_core_content
+  \  Input Text   ${NewUsername}   xxx
+  \  Input Text   ${NewPassword}   xxx
+  \  Input Text   ${NewConformPassword}   xxx
+  \  Input Text   ${NewPersonSurname}   xxx
+  \  Input Text   ${NewPersonFirstname}  xxx
+  \  Input Text   ${NewPersonEmailAddress}  xxx
+  \  Click Element  xpath=//input[@id="save_button"]
+  \  Sleep  5
+  \  ${index}=  Set Variable  ${index + 1} 
+  \  Unselect Frame
+  \  Unselect Frame
+  
+  
+ Personal Data
+  [Documentation]  Upload Personal Data file   
+  [Tags]  PersonalDataUpload
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details 
+  Select Frame  id=full_content
+  Select Frame  id=single_core_content
+  Mouse Over   id=personal
+  Click Link   id=personalLink3  
+  Wait Until Element Is Visible     xpath=//form[@action="arc.personal_docs.docs_edit"]
+  Choose File    name=p_filename   xpath=//input[@onchange="checkFile(this);"]    
+  Unselect Frame
+  Unselect Frame
+  
+New User Creation
+  [Documentation]  Create New User  
+  [Tags]  NewUserCreation
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details 
+  #${index}=  Set Variable  1
+  #Set suite variable   ${index}
+  #:FOR  ${index}   IN RANGE   10
+  #\  Continue For Loop If	   '${index}'>'10'
+  Mouse Over   id=personal
+  Click Link   id=personalLink2
+  Select Frame  name=full_content
+  sleep  5
+  Click Image   /images/NeoStrategy/new profile.png
+  Select Frame  id=single_core_content
+  Input Text   ${NewUsername}   xxx
+  Input Text   ${NewPassword}   xxx
+  Input Text   ${NewConformPassword}   xxx
+  Input Text   ${NewPersonSurname}   Neha
+  Input Text   ${NewPersonFirstname}  Arr
+  Input Text   ${NewPersonEmailAddress}  xxx
+  Click Element  xpath=//input[@id="save_button"]
+  Sleep  6
+  #${index}=  Set Variable  ${index + 1} 
+  Click Button  Deactivate
+  Unselect Frame
+  Unselect Frame
+
+New User Creation
+  [Documentation]  Create New User  
+  [Tags]  NewUserCreation
+      [Arguments]    ${maximize}=false
+  
+  Launch Lato URL
+  #Maximize Browser Window
+  Sleep  3
+  Enter authentication details 
+  #Maximize Browser Window
+  
+  
+  #${index}=  Set Variable  1
+  #Set suite variable   ${index}
+  #:FOR  ${index}   IN RANGE   10
+  #\  Continue For Loop If	   '${index}'>'10'
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+    Run Keyword If    "${maximize}".lower()=="true"    Maximize Browser Window
+  
+  #Maximize Browser Window
+  
+  ${GetGoalsCount}=  Get Matching Xpath Count  //table[@class="listGoal"]/tbody/tr/td[contains(@style,'width:100%')]
+  ${GetGoalsCount}=  Convert To string	${GetGoalsCount}
+  ${GetGoalsCount}=  Set Variable  ${GetGoalsCount} 
+  Sleep  5
+  Log To Console   ${GetGoalsCount}
+  Unselect Frame
+  Unselect Frame
+  Mouse Over   id=personal
+  Click Link   id=personalLink2
+  Select Frame  name=full_content
+  sleep  5
+  Click Image   /images/NeoStrategy/new profile.png
+  Select Frame  id=single_core_content
+  Input Text   ${NewUsername}   xxx
+  Input Text   ${NewPassword}   xxx
+  Input Text   ${NewConformPassword}   xxx
+  Input Text   ${NewPersonSurname}   Naina${GetGoalsCount}
+  Input Text   ${NewPersonFirstname}  Arr
+  Input Text   ${NewPersonEmailAddress}  Naina.sa${GetGoalsCount}@lato.com
+  Click Element  xpath=//input[@id="save_button"]
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//form[@id="t110010"]
+  Click Button  Deactivate
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  Click Button  YES
+  Sleep  2
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]
+  Click Button  Deactivate
+  Unselect Frame
+  Unselect Frame
+  Wait Until Element Is Visible  xpath=//div[@class="modal-footer"]
+  Click Button  OK
+  Sleep  3
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible  xpath=//form[@id="user_data"]
+  Click Button  xpath=//input[@value="Activate"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  Click Button  YES
+    Sleep  2
+    Click Button  OK 
+    Sleep  4
+    Select Frame   id=full_content
+    Wait Until Element Is Visible  xpath=//div[@id="right_frame"]/div[@id="statusRight"]
+    Click Button  xpath=//input[@id="SubmitBtn"]
+    Unselect Frame
+    Sleep  8
+    Wait Until Element Is Visible  xpath=//div[@class="modal-footer"]
+    Click Button  OK
+
+
+User Deactivation
+  [Documentation]  Deactivate existing user
+  [Tags]  UserDeactivation
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details
+  Mouse Over   id=personal
+  Click Link   id=personalLink2
+  Select Frame  name=full_content
+ 
+  Click Button  Deactivate
+  
+  
