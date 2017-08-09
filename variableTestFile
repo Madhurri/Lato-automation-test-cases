@@ -1,0 +1,43 @@
+***Variables***
+${Username}  id=p_user_name
+${Password}  id=p_user_pwd
+${url}  xxx
+${Goal}  id=title1
+${GoalId}  id=title
+${Browser}  Firefox
+
+${GoalDescription}  id=description
+${IndicatorValueLimitsPersentageValue}   id=indicator_1_percent
+${IncreaseProfitabulityDescription}  id=p_description
+${value}  id=indicator_1_min
+${IndicatorName}  id=indicator_1_title
+${KPIIndicatorMinValue}  id=indicator_1_min
+${KPIIndicatorMaxValue}  id=indicator_1_max
+${KPIIndicatorAchievedValue}  id=indicator_1_ach
+${ONOffID}   id=metric_on_off_info
+${ONOff Target Value}  id=ivl_target
+${ONOff achieved Value}    id=ivl_achieve
+${Goal Comment}  id=commentText
+${Additional Goal Description}  id=p_description
+${Goal Link URL}   id=link_url.1
+${Goal URL Description}  id=link_row.1b
+${NewUsername}  id=username
+${NewPassword}  id=userpass.A
+${NewConformPassword}  id=userpass.B
+${OldPassword}  id=oldPassword
+${ChangePasswordFormEnterNewPassword}  id=newPassword
+${ChangePasswordFormConfirmNewPassword}  id=ConfirmnewPwd
+${NewPersonSurname}  id=name_last
+${NewPersonFirstname}  id=name_first
+${NewPersonEmailAddress}  id=email
+${FirstActionsDescription}   id=title1
+ ${FirstActionsProgress}   id=progress1 
+ ${SecondActionsDescription}   id=title2
+ ${SecondActionsProgress}   id=progress2
+${ActionsSearch}  id=ezusq1
+${NewSeasonData}  id=season_name
+${AddNewName}  id=i18n_ENG
+${newgroupUserFirstName}  value id=firstname_1
+#${GetGoalsCount}=  Set Variable  ${GetGoalsCount}   
+
+${xmlurl}   xxx
