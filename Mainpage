@@ -1,0 +1,1093 @@
+***Settings***
+
+Library  Selenium2Library
+Library  OperatingSystem
+Library  BuiltIn
+Library  String
+#Library  SwingLibrary
+Resource  TestcaseVariables/variableTestFile.txt
+Resource  TestCaseKeywords/KeywordTestFiles.txt
+Library           Collections
+
+
+***Test Cases***
+Diff Types of Metric Type
+  [Documentation]  Create Goal With Diff Types of Metric Type
+  [Tags]  DiffTypeMericType
+  Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Maximize Browser Window
+  ${Count}=  Set Variable  1
+  :FOR  ${Count}   IN RANGE   4
+  \  Continue For Loop If	   '${Count}'>'4'
+  \  Select Frame  id=full_content
+  \  Click Element  //img[@title='New Goal'] 
+  \  Unselect Frame
+  \  Select Frame  id=popUpFrame    
+  \  Click Element  id=bsc_dimension 
+  \  Sleep  2
+  \  ${MinMAXNewNumber}=  Set Variable  0
+  \  ${OnOffNewNumber}=  Set Variable   1
+  \  ${DescriptiveNewNumber}=  Set Variable    2
+  \  ${NogoalNewNumber}=  Set Variable  3
+  \  RUN KEYWORD IF  '${Count}'=='${MinMAXNewNumber}'   Min MAx Goal  
+  \  Sleep  2
+  \  RUN KEYWORD IF	  '${Count}'=='${OnOffNewNumber}'     On Off Metric Type
+  \  RUN KEYWORD If   '${Count}'=='${DescriptiveNewNumber}'   Descriptive Metric Type
+  \  RUN KEYWORD If    '${Count}'=='${NogoalNewNumber}'    No Goal Metric Type
+  \  Sleep   3
+  \  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  \  Click Element  xpath=//img[@src="/images/NeoStrategy/facelift/ic_arrow_grey_NE.png"]   
+  \  Click Image  /images/NeoStrategy/facelift/priority_low.png
+  \  Sleep   2
+  \  Click Element  //input[@value="Save"]
+  \  Unselect Frame
+  \  Sleep  2
+  \  ${Count}=  Set Variable  ${Count + 1}
+  
+Goal Edit
+  [Tags]  GoalEditPage
+  Sleep  5s
+  Mouse Over   id=peopleText
+  Click Link  id=personalLink1    
+  Select Frame  id=full_content
+  Select Frame   id=single_core_content
+  Sleep  5
+  Wait Until Element Is Visible   xpath=//table[contains(@id,'goalsTab')]
+  Wait Until Element Is Visible  xpath=//table[@id="goalsTab"]/tbody/tr[2]/td[1] 
+  Click Element    xpath=//table[@id="goalsTab"]/tbody/tr[2]/td[1]/a
+  Unselect Frame
+  Unselect Frame
+  Select Frame  id=popUpFrame
+  Sleep  5
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]
+  Click Image   id=goal_description_ 
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773670"]
+  Input text  ${GoalId}   This test is used for goal edit
+  Input text  ${GoalDescription}   Returns the content from a table cell.Row and column number start from 1. Header and footer rows are included in the count. A negative row or column number can be used to get rows counting from the end (end: -1). Cell content from header or footer rows can be obtained with this keyword. To understand how tables are identified, please take a look at the introduction.See Page Should Contain for explanation about loglevel argument.
+  Sleep  5
+  Select From List   xpath=//select[@id="metric_type"]    On-Off
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  Click Element  //label[@class="onoff_box"]    # click on On Off lebel
+  Input Text  ${ONOff Target Value}  40
+  Input Text  ${ONOff achieved Value}  4.2
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  Sleep   4
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+
+Create First Actions 
+  [Tags]   FirstAction 
+  [Documentation]  Create New User  
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details 
+  Sleep  5s
+  Mouse Over   id=personal
+  Click Link   Personal Goals
+  Select Frame  name=full_content
+  Select Frame  name=single_core_content
+  Sleep  2
+  Wait Until Element Is Visible   xpath=//table[contains(@id,'goalsTab')]
+  ${GetGoalsCount}=  Get Matching Xpath Count  //table[@id="goalsTab"]/tbody/tr/td[contains(@title,'Actions')]
+  
+  Mouse Over    xpath=//table[@id="goalsTab"]/tbody/tr[${GetGoalsCount}]
+  Sleep  4
+  Click Image    xpath=//table[@id="goalsTab"]/tbody/tr[${GetGoalsCount}]/td/img[@src="/images/NeoStrategy/Plus_Blue.png"]   
+  Unselect Frame
+  Unselect Frame
+  Select Frame  id=popUpFrame
+  Input Text  ${FirstActionsDescription}   This is first action description
+  Input Text  ${FirstActionsProgress}   20
+  Sleep  2
+  Select From List   xpath=//select[@id="months1"]  Dec
+  Select From List   xpath=//select[@id="years1"]  2017
+  Sleep   2
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  
+Create Actions
+  [Documentation]  This testcase for create actions when the page have already have some actions   
+  [Tags]   ActionCreation
+  #Launch Lato URL
+  #Enter authentication details 
+  #Sleep  5
+  #Maximize Browser Window
+  #Mouse Over   id=personal
+  #Click Link   Personal Goals
+  Select Frame  name=full_content
+  Select Frame  name=single_core_content
+  Sleep  2
+  Wait Until Element Is Visible   xpath=//table[contains(@id,'goalsTab')]
+  ${GetGoalsCount}=  Get Matching Xpath Count  //table[@id="goalsTab"]/tbody/tr/td[contains(@title,'Actions')]
+  Mouse Over    xpath=//table[@id="goalsTab"]/tbody/tr[${GetGoalsCount}]
+  Click Image    xpath=//table[@id="goalsTab"]/tbody/tr[${GetGoalsCount}]/td/img[@src="/images/NeoStrategy/Hover_Go.png"]   
+  Unselect Frame
+  Unselect Frame
+  Select Frame  id=popUpFrame
+  Click Image   /images/NeoStrategy/list_p.png
+  Sleep  3
+  Input Text  ${SecondActionsDescription}   This is an action description
+  Click Image   /images/NeoStrategy//Pen.png
+  Input Text  ${SecondActionsProgress}   10
+  Sleep  3
+  Select From List   xpath=//select[@id="months2"]  Mar
+  Select From List   xpath=//select[@id="years2"]  2017
+  Sleep   3
+  Click Button   Save    #Element  //input[@value="Save"]
+  Unselect Frame
+
+Reports TestCase
+  [Documentation]   Create New Goal
+  [Tags]  StatusReport
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details
+  Sleep   3
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  ${GetGoalsCount}=  Get Matching Xpath Count  //table[@class="listGoal"]/tbody/tr/td[contains(@style,'width:100%')]
+  ${GetGoalsCount}=  Convert To string	${GetGoalsCount}
+  ${GetGoalsCount}=  Set Variable  ${GetGoalsCount} 
+  Sleep  10
+  Unselect Frame
+  Unselect Frame
+  Wait Until Element Is Visible  xpath=//table[@id="navTab"]
+  Mouse Over  id=reportsnavi
+  Sleep  5
+  Click Element    xpath=//li/a[@id="reportLink1"]
+  
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Sleep  5
+  #Click Image  /images/NeoStrategy/facelift/show.png
+    Click Element   xpath=//select[@id="p_org_identifier"]/option[@value="3773646"] 
+  
+  
+  ${Reportsrows}=  Get Matching Xpath Count  //table[@class="statusTabTable"]/tbody/tr/td/p[contains(@style,'white-space:nowrap; margin:2px;')]
+  ${Reportsrows}=  Convert To string	${Reportsrows}
+  ${Reportsrows}=  Set Variable  ${Reportsrows} 
+  Should be equal as strings     ${Reportsrows}    ${GetGoalsCount} 
+  #Log To Console   ${Reportsrows}   
+  #Log To Console   ${GetGoalsCount}
+  Unselect Frame
+  Unselect Frame
+Goal Linking With Apple FI Node
+  [Documentation]  This documentation for linking Goals
+  [Tags]  GoalLinkingWithFINode
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details
+  Sleep  2
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame   id=full_content
+  Wait Until Element Is Visible   xpath=//table[@id="filtersSpace"]/tbody/tr/td[@id="orgDropDwn"]/p    #div[@id="right_frame"]   #/div[@id="statusRight"]         #single_core_left_div   #id=single_core_content
+  Sleep  3
+  Click Element   xpath=//select[@id="goal_matrix_manager"]/option[@value="3773937"] 
+   Select Frame   id=single_core_content
+  Click Image   /images/NeoStrategy/expand.gif
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Select Frame  id=popUpFrame 
+  Wait Until Element Is Visible  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Input text  ${GoalId}  MinMax Goal Test
+  Input text  ${GoalDescription}  This is my first robot automation test case 
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    #table[@id="org_editor_table"]/tr[@id="goal_status_row"]/table[@id="goal_status_tab"]   #tr[@id="metric_trend_tr"]/img[@id="trend"]
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Select From List   xpath=//select[@id="metric_type"]    Min-Max
+  Input Text   ${IndicatorName}    MyOWnIndicator
+  Input Text   ${KPIIndicatorMinValue}  10
+  Input Text   ${KPIIndicatorMaxValue}  40
+  Input text  ${KPIIndicatorAchievedValue}  12
+  Sleep   3
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  Sleep   3
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Sleep  5
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  ${GetHeaderElement}=  Set Variable  Apple FI
+  Wait Until Element Is Visible  xpath=//table[contains(@id,'list')] 
+  ${table data}=  Get Text  id=list   
+  Wait Until Element Is Visible    xpath=//table[contains(@class,'listGoal')]     #/tbody/tr/td/p/span  
+  ${Headerdata}=  Get Matching Xpath Count   xpath=//table[contains(@class,'listGoal')]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/copy_icon.png')]   #/span[text()='1.1.']    #[contains(@class,'th2')][2]
+  ${Headerdata}=  Convert to string  ${Headerdata}
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//table[@id="navTab"]
+  Mouse Over  id=reportsnavi
+  Sleep  3
+  Click Element    xpath=//li/a[@id="reportLink2"]
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible   xpath=//div[@id="linkingHeader"]/table/tbody/tr/td/table/tbody/tr/td
+  Sleep  3
+  Click Element   xpath=//select[@id="organisation_node"]/option[@value="3773937"] 
+  Sleep  3  
+  Wait Until Element Is Visible  xpath=//div[@id="linkingHeader"]/table[@id="likingHeadTab"]  
+  Sleep  3
+  ${table data in Goal Linking page}=  Get Matching Xpath Count  xpath=//table[@id="linkingTab"]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/facelift/focus_target_blue.png')]    #id=linkingTab  
+  ${StringComp}=  Convert to string  ${table data in Goal Linking page}
+  Should be equal as strings     ${Headerdata}    ${StringComp}  
+  #Log To Console   ${Headerdata} 
+  #Log To Console   ${StringComp}     
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  
+Goal Linking With Apple HELSINKI Node
+  [Documentation]  This documentation for linking Goals
+  [Tags]  GoalLinkingWithHELSINKINode
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details
+  Sleep  2
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame   id=full_content
+  Wait Until Element Is Visible   xpath=//table[@id="filtersSpace"]/tbody/tr/td[@id="orgDropDwn"]/p    #div[@id="right_frame"]   #/div[@id="statusRight"]         #single_core_left_div   #id=single_core_content
+  Sleep  3
+  Click Element   xpath=//select[@id="goal_matrix_manager"]/option[@value="3773949"] 
+  Sleep  3  
+  Select Frame   id=single_core_content
+  Click Image   /images/NeoStrategy/expand.gif
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Select Frame  id=popUpFrame 
+  Wait Until Element Is Visible  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Input text  ${GoalId}  MinMax Goal Test
+  Input text  ${GoalDescription}  This is my first robot automation test case 
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    #table[@id="org_editor_table"]/tr[@id="goal_status_row"]/table[@id="goal_status_tab"]   #tr[@id="metric_trend_tr"]/img[@id="trend"]
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Select From List   xpath=//select[@id="metric_type"]    Min-Max
+  Input Text   ${IndicatorName}    MyOWnIndicator
+  Input Text   ${KPIIndicatorMinValue}  10
+  Input Text   ${KPIIndicatorMaxValue}  40
+  Input text  ${KPIIndicatorAchievedValue}  12
+  Sleep   3
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+   Sleep   3
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Sleep  5
+  Sleep  3
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  ${GetHeaderElement}=  Set Variable  Apple FI
+  Wait Until Element Is Visible  xpath=//table[contains(@id,'list')] 
+  ${table data}=  Get Text  id=list   
+  Wait Until Element Is Visible    xpath=//table[contains(@class,'listGoal')]     #/tbody/tr/td/p/span  
+  ${Headerdata}=  Get Matching Xpath Count   xpath=//table[contains(@class,'listGoal')]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/copy_icon.png')]   #/span[text()='1.1.']    #[contains(@class,'th2')][2]
+  ${Headerdata}=  Convert to string  ${Headerdata}
+  #Log To Console   ${Headerdata}
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//table[@id="navTab"]
+  Mouse Over  id=reportsnavi
+  Sleep  3
+  Click Element    xpath=//li/a[@id="reportLink2"]
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible   xpath=//div[@id="linkingHeader"]/table/tbody/tr/td/table/tbody/tr/td
+  Sleep  3
+  Click Element   xpath=//select[@id="organisation_node"]/option[@value="3773949"] 
+  Sleep  3  
+  Wait Until Element Is Visible  xpath=//div[@id="linkingHeader"]/table[@id="likingHeadTab"]  
+  Sleep  3
+  ${table data in Goal Linking page}=  Get Matching Xpath Count  xpath=//table[@id="linkingTab"]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/facelift/focus_target_blue.png')]    #id=linkingTab  
+  ${StringComp}=  Convert to string  ${table data in Goal Linking page}
+  #Log To Console  ${StringComp}
+  Should be equal as strings     ${Headerdata}    ${StringComp}   
+  #Log To Console   ${Headerdata} 
+  #Log To Console   ${StringComp} 
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  
+  
+ Goal Linking With Apple Espoo Node
+  [Documentation]  This documentation for linking Goals
+  [Tags]  GoalLinkingWithEspooNode
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details
+  Sleep  2
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame   id=full_content
+  Wait Until Element Is Visible   xpath=//table[@id="filtersSpace"]/tbody/tr/td[@id="orgDropDwn"]/p    #div[@id="right_frame"]   #/div[@id="statusRight"]         #single_core_left_div   #id=single_core_content
+  Sleep  3
+  Click Element   xpath=//select[@id="goal_matrix_manager"]/option[@value="3773961"] 
+  Sleep  3  
+  Select Frame   id=single_core_content
+  Click Image   /images/NeoStrategy/expand.gif
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Select Frame  id=popUpFrame 
+  Wait Until Element Is Visible  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Input text  ${GoalId}  MinMax Goal Test
+  Input text  ${GoalDescription}  This is my first robot automation test case 
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    #table[@id="org_editor_table"]/tr[@id="goal_status_row"]/table[@id="goal_status_tab"]   #tr[@id="metric_trend_tr"]/img[@id="trend"]
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Select From List   xpath=//select[@id="metric_type"]    Min-Max
+  Input Text   ${IndicatorName}    MyOWnIndicator
+  Input Text   ${KPIIndicatorMinValue}  10
+  Input Text   ${KPIIndicatorMaxValue}  40
+  Input text  ${KPIIndicatorAchievedValue}  12
+  Sleep   3
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  #Click Element  xpath=//img[@src="/images/NeoStrategy/facelift/ic_arrow_yellow_E.png"]   
+  #Click Image  /images/NeoStrategy/facelift/priority_low.png
+  Sleep   3
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Sleep  5
+  Sleep  3
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  ${GetHeaderElement}=  Set Variable  Apple FI
+  Wait Until Element Is Visible  xpath=//table[contains(@id,'list')] 
+  ${table data}=  Get Text  id=list   
+  Wait Until Element Is Visible    xpath=//table[contains(@class,'listGoal')]     #/tbody/tr/td/p/span  
+  ${Headerdata}=  Get Matching Xpath Count   xpath=//table[contains(@class,'listGoal')]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/copy_icon.png')]   #/span[text()='1.1.']    #[contains(@class,'th2')][2]
+  ${Headerdata}=  Convert to string  ${Headerdata}
+  #Log To Console   ${Headerdata}
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//table[@id="navTab"]
+  Mouse Over  id=reportsnavi
+  Sleep  3
+  Click Element    xpath=//li/a[@id="reportLink2"]
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible   xpath=//div[@id="linkingHeader"]/table/tbody/tr/td/table/tbody/tr/td
+  Sleep  3
+  Click Element   xpath=//select[@id="organisation_node"]/option[@value="3773961"] 
+  Sleep  3  
+  Wait Until Element Is Visible  xpath=//div[@id="linkingHeader"]/table[@id="likingHeadTab"]  
+  Sleep  3
+  ${table data in Goal Linking page}=  Get Matching Xpath Count  xpath=//table[@id="linkingTab"]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/facelift/focus_target_blue.png')]    #id=linkingTab  
+  ${StringComp}=  Convert to string  ${table data in Goal Linking page}
+  #Log To Console  ${StringComp}
+  Should be equal as strings     ${Headerdata}    ${StringComp}  
+  #Log To Console   ${Headerdata} 
+  #Log To Console   ${StringComp}  
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  
+Goal Linking With Apple SWEDEN Node
+  [Documentation]  This documentation for linking Goals
+  [Tags]  GoalLinkingWithSWEDENNode
+ 
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details
+  Sleep  2
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame   id=full_content
+  Wait Until Element Is Visible   xpath=//table[@id="filtersSpace"]/tbody/tr/td[@id="orgDropDwn"]/p    #div[@id="right_frame"]   #/div[@id="statusRight"]         #single_core_left_div   #id=single_core_content
+  Sleep  3
+  Click Element   xpath=//select[@id="goal_matrix_manager"]/option[@value="3773973"] 
+  Sleep  3  
+  #Unselect Frame'
+  
+  Select Frame   id=single_core_content
+  Click Image   /images/NeoStrategy/expand.gif
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Select Frame  id=popUpFrame 
+  Wait Until Element Is Visible  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Click Element  xpath=//select[@id="bsc_dimension"]/option[@value="SEASON_THEME_3773661"]
+  Input text  ${GoalId}  MinMax Goal Test
+  Input text  ${GoalDescription}  This is my first robot automation test case 
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]/table[@id="org_editor_table"]/tbody/tr[@class="r0"]    #table[@id="org_editor_table"]/tr[@id="goal_status_row"]/table[@id="goal_status_tab"]   #tr[@id="metric_trend_tr"]/img[@id="trend"]
+  Click Element  Xpath=//tr[@class="r0"]/td/table/tbody/tr/td/img[@src="/images/NeoStrategy/facelift/show.png"]
+  Select From List   xpath=//select[@id="metric_type"]    Min-Max
+  Input Text   ${IndicatorName}    MyOWnIndicator
+  Input Text   ${KPIIndicatorMinValue}  10
+  Input Text   ${KPIIndicatorMaxValue}  40
+  Input text  ${KPIIndicatorAchievedValue}  12
+  Sleep   3
+  Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+  #Click Element  xpath=//img[@src="/images/NeoStrategy/facelift/ic_arrow_yellow_E.png"]   
+  #Click Image  /images/NeoStrategy/facelift/priority_low.png
+  Sleep   3
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Sleep  5
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  ${GetHeaderElement}=  Set Variable  Apple FI
+  Wait Until Element Is Visible  xpath=//table[contains(@id,'list')] 
+  ${table data}=  Get Text  id=list   
+  Wait Until Element Is Visible    xpath=//table[contains(@class,'listGoal')]     #/tbody/tr/td/p/span  
+  ${Headerdata}=  Get Matching Xpath Count   xpath=//table[contains(@class,'listGoal')]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/copy_icon.png')]   #/span[text()='1.1.']    #[contains(@class,'th2')][2]
+  ${Headerdata}=  Convert to string  ${Headerdata}
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//table[@id="navTab"]
+  Mouse Over  id=reportsnavi
+  Sleep  3
+  Click Element    xpath=//li/a[@id="reportLink2"]
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible   xpath=//div[@id="linkingHeader"]/table/tbody/tr/td/table/tbody/tr/td
+  Sleep  3
+  Click Element   xpath=//select[@id="organisation_node"]/option[@value="3773973"] 
+  Sleep  3  
+  Wait Until Element Is Visible  xpath=//div[@id="linkingHeader"]/table[@id="likingHeadTab"]  
+  Sleep  3
+  ${table data in Goal Linking page}=  Get Matching Xpath Count  xpath=//table[@id="linkingTab"]/tbody/tr/td/img[contains(@src,'/images/NeoStrategy/facelift/focus_target_blue.png')]    #id=linkingTab  
+  ${StringComp}=  Convert to string  ${table data in Goal Linking page}
+  Should be equal as strings     ${Headerdata}    ${StringComp} 
+  #Log To Console   ${Headerdata} 
+  #Log To Console   ${StringComp}   
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  
+New User Creation
+  [Documentation]  Create New User  
+  [Tags]  NewUserCreation
+  #Launch Lato URL
+  #Enter authentication details 
+  #${index}=  Set Variable  1
+  #Set suite variable   ${index}
+  #:FOR  ${index}   IN RANGE   10
+  #\  Continue For Loop If	   '${index}'>'10'
+  #Mouse Over   id=goalsText
+  #Click Link  id=goalsLink1
+  #Maximize Browser Window
+  #Select Frame   id=full_content
+  #Select Frame   id=single_core_content
+  #${GetGoalsCount}=  Get Matching Xpath Count  //table[@class="listGoal"]/tbody/tr/td[contains(@style,'width:100%')]
+  #${GetGoalsCount}=  Convert To string	${GetGoalsCount}
+  #${GetGoalsCount}=  Set Variable  ${GetGoalsCount} 
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink1
+  Sleep  2s
+  Maximize Browser Window
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Sleep  2 
+  ${GetGoalsCount}=  Get Matching Xpath Count  //table[@class="listGoal"]/tbody/tr/td[contains(@style,'width:100%')]
+  ${GetGoalsCount}=  Convert To string	${GetGoalsCount}
+  ${GetGoalsCount}=  Set Variable  ${GetGoalsCount}   
+  Unselect Frame
+  Unselect Frame
+  
+  #Goals Count
+  Sleep  2
+  #Log To Console   ${GetGoalsCount}
+  #Unselect Frame
+  #Unselect Frame
+  Mouse Over   id=personal
+  Click Link   id=personalLink2
+  Select Frame  name=full_content
+  sleep  5
+  Click Image   /images/NeoStrategy/new profile.png
+  Select Frame  id=single_core_content
+  Input Text   ${NewUsername}   xxx
+  Input Text   ${NewPassword}   xxx
+  Input Text   ${NewConformPassword}   xxx
+  Input Text   ${NewPersonSurname}   Aliya${GetGoalsCount}
+  Input Text   ${NewPersonFirstname}  Balla
+  Input Text   ${NewPersonEmailAddress}  Aliya.Balla${GetGoalsCount}@lato.com
+  Click Element  xpath=//input[@id="save_button"]
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//form[@id="t110010"]
+  Click Button  Deactivate
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  Click Button  YES
+  Sleep  2
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]
+  Click Button  Deactivate
+  Unselect Frame
+  Unselect Frame
+  Wait Until Element Is Visible  xpath=//div[@class="modal-footer"]
+  Click Button  OK
+  Sleep  3
+  Select Frame   id=full_content
+  Select Frame   id=single_core_content
+  Wait Until Element Is Visible  xpath=//form[@id="user_data"]
+  Click Button  xpath=//input[@value="Activate"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Wait Until Element Is Visible  xpath=//div[@class="bootbox modal fade bootbox-confirm in"]
+  Click Button  YES
+    Sleep  2
+    Click Button  OK 
+    Sleep  2
+    Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+    
+    
+Roles Granting For User Priviledge Check
+  [Tags]  Rolegranting
+  #Launch Lato URL
+  Sleep  3
+  Input text  ${Username}   xxx
+  Input text  ${Password}   xxx
+  Click button  Login 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Element Should Not Be Visible   xpath=//img[src="/images/NeoStrategy/facelift/list_m_priv.png"]
+  Unselect Frame
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Enter authentication details
+  Mouse Over  id=adminText 
+  Click Link   id=adminLink3
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Click Element  xpath=//span[text()='roshini balla3 '] 
+  Sleep  2
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Input text  ${Username}   xxx
+  Input text  ${Password}   xxx
+  Click button  Login 
+  Sleep  3
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Element Should Be Visible   xpath=//img[@src="/images/NeoStrategy/facelift/list_p_priv.png"]
+  Unselect Frame
+  Unselect Frame
+  
+Create New User Privilage 
+  [Tags]  CreateNewUser 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Sleep  2
+  Select Frame  name=full_content
+  Sleep  2
+  Element Should Not Be Visible   xpath=//img[@src="/images/NeoStrategy/new profile.png"]
+  Unselect Frame
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_CREATE_NEW_USER"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  name=full_content
+  Sleep  2
+  Element Should Be Visible   xpath=//img[@src="/images/NeoStrategy/new profile.png"]
+  Unselect Frame
+  
+  
+ 
+Role Granting For Users during create privilege Test
+  [Tags]  RolegrantingDuringCreate
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Sleep  2
+    Select Frame  name=full_content
+    Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES_ON_CREATE"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  name=full_content
+  Click Image   /images/NeoStrategy/new profile.png
+  Select Frame  id=single_core_content
+  Sleep  2
+  Element Should Be Visible   xpath=//img[@src="/images/NeoStrategy/facelift/list_p_priv.png"]
+  Unselect Frame
+  Unselect Frame
+  
+Edit Ogranizational Structure Privilege 
+  [Tags]  EditOgranizationalGoals
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  #Maximize Browser Window
+  Element Should Not Be Visible   xpath=//a[@id="adminText"]
+  Element Should Not Be Visible   xpath=//a[@id="adminLink1"]
+  Element Should Not Be Visible   xpath=//a[@id="adminLink4"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANIZATION_EDIT"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="adminText"]
+  Mouse Over  id=adminText 
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="adminLink1"]
+  Element Should Be Visible   xpath=//a[@id="adminLink4"]
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANIZATION_EDIT"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  
+Manage All Ogranization Goals Privilege 
+  [Tags]  ManageAllOgranizationGoals
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  #Maximize Browser Window
+  Element Should Not Be Visible   xpath=//a[@id="adminText"]
+  Element Should Not Be Visible   xpath=//a[@id="adminLink4"]
+  Sleep  1
+  Mouse Over  id=goalsText 
+  Sleep  2
+  Element Should Not Be Visible   xpath=//a[@id="goalsLink1"]
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_RASKONE_GOAL_MANAGER"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="goalsLink1"]
+  Element Should Be Visible   xpath=//a[@id="adminText"]
+  Mouse Over  id=adminText 
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="adminLink4"]
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_RASKONE_GOAL_MANAGER"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame  
+  
+  
+Manage Own Ogranization Chain Goals Privilege 
+  [Tags]  ManageOwnOgranizationChainGoals
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  #Maximize Browser Window
+  Mouse Over  id=goalsText 
+  Sleep  2
+  Element Should Not Be Visible   xpath=//a[@id="goalsLink1"]
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_MANAGE_OWN_CHAIN_ORG_GOALS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="goalsLink1"]
+  Sleep  2
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Element Should Be Visible   xpath=//select[@id="goal_matrix_manager"]
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_MANAGE_OWN_CHAIN_ORG_GOALS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame 
+  
+Manage Own Ogranization Goals Privilege 
+  [Tags]  ManageOwnOgranizationChainGoals
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  #Maximize Browser Window
+  Mouse Over  id=goalsText 
+  Sleep  2
+  Element Should Not Be Visible   xpath=//a[@id="goalsLink1"]
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANISATION_GOAL_ADMINISTRATION"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="goalsLink1"]
+  Sleep  2
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Element Should Be Visible   xpath=//select[@id="goal_matrix_manager"]
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANISATION_GOAL_ADMINISTRATION"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame 
+
+Goal Deactivation Privilege 
+  [Tags]  ManageOwnOgranizationChainGoals
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  #Maximize Browser Window
+  Mouse Over  id=goalsText 
+  Sleep  2
+  Element Should Not Be Visible   xpath=//a[@id="goalsLink1"]
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_RASKONE_GOAL_MANAGER"]    
+  Click Element  xpath=//li[@id="LI_DEACTIVATE_GOAL"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="goalsLink1"]
+  Sleep  2
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Select Frame    xpath=//iframe[@name="single_core_content_right"]
+  Element Should Be Visible   xpath=//input[@value="Deactivate"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_RASKONE_GOAL_MANAGER"]    
+  Click Element  xpath=//li[@id="LI_DEACTIVATE_GOAL"]   
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame 
+
+  
+Link Users To Ogranization Structure Privilege 
+  [Tags]  LinkUsersToOgranizationStructure
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  #Maximize Browser Window
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Element Should Not Be Visible   xpath=//Select[@id="performance_structure.2016 Q2"]
+  Element Should Not Be Visible   xpath=//Select[@id="performance_structure.2016 Q3"]    
+  Element Should Not Be Visible   xpath=//Select[@id="performance_structure.Circket"]    
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Click Element  xpath=//li[@id="LI_STRATEGYDEMO_HR_LINK_PERFORMANCE_STRUCTURE"]    
+  Click Element  //input[@value="Save"]
+  Sleep  2
+  Unselect Frame
+  Unselect Frame
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Element Should Be Visible   xpath=//Select[@id="performance_structure.2016 Q2"]
+  Element Should Be Visible   xpath=//Select[@id="performance_structure.2016 Q3"]    
+  Element Should Be Visible   xpath=//Select[@id="performance_structure.Circket"]
+  Unselect Frame
+  Unselect Frame   
+
+Goal Deletion Privilege 
+  [Tags]  GoalDeletion
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+ # Maximize Browser Window
+  Mouse Over  id=goalsText 
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Element Should Not Be Visible   xpath=//img[@src="/images/NeoStrategy/trash_header.png"]
+  Unselect Frame  
+  Unselect Frame  
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_DELETE_GOAL"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Element Should Be Visible   xpath=//img[@src="/images/NeoStrategy/trash_header.png"]
+  Unselect Frame   
+  Unselect Frame   
+  
+Goal Review 
+  [Tags]  GoalReview
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_REVIEW"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink7"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_REVIEW"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  
+Goal Status 
+  [Tags]  GoalStatus
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_STATUS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink1"] 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_STATUS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame 
+  
+Goal Linking
+  [Tags]  GoalLinking
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_LINKING"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink2"] 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_LINKING"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame 
+
+
+Theme Report
+  [Tags]  TheameReport
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_BSC"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink3"]  
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_BSC"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+
+
+Actions
+  [Tags]  Actions
+  #Launch Lato URL
+  #Input text  ${Username}   xxx
+  #Input text  ${Password}   xxx
+  #Click button  Login 
+  #Maximize Browser Window
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_ACTIONS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink4"] 
+
+
+
+  
