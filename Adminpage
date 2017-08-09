@@ -1,0 +1,783 @@
+***Settings***
+Library  Selenium2Library
+Library  OperatingSystem
+Library  BuiltIn
+#Library   Process
+Library   String
+Library   Collections
+
+
+#Library   RemoteSwingLibrary
+Resource  TestcaseVariables/variableTestFile.txt
+Resource  TestCaseKeywords/KeywordTestFiles.txt
+
+
+***Test Cases***
+Change Hierarchy
+  [Documentation]  Change  Hierarchy
+  [Tags]  ChangeHierarchy
+  Launch Lato URL
+  Enter authentication details 
+  Mouse Over  id=adminText 
+  Maximize Browser Window
+  
+  Click Link   Hierarchy
+  Select Frame  id=full_content
+  Select Frame  id=single_core_content
+  Sleep  5
+  Click Element  xpath=//li[@id="3981981"]
+  Sleep  3
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_ACTIVATE_USERS"]
+  Click Element  xpath=//li[@id="LI_CREATE_NEW_USER"]
+  Click Element  xpath=//li[@id="LI_DELETE_USERS"]
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES_ON_CREATE"]
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES"]
+  Click Element  xpath=//li[@id="LI_STRATEGYDEMO_HR_LINK_PERFORMANCE_STRUCTURE"] 
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_LINKING"]
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANISATION_GOAL_ADMINISTRATION"]
+  Click Element  xpath=//li[@id="LI_MANAGE_OWN_CHAIN_ORG_GOALS"]
+  Click Element  xpath=//li[@id="LI_STRATEGY_DEMO_HR"]
+  Click Element  xpath=//li[@id="LI_ACTIVATE_USERS"]
+  Click Element  xpath=//li[@id="LI_CREATE_NEW_USER"]
+  Click Element  xpath=//li[@id="LI_DELETE_USERS"]
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES_ON_CREATE"]
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES"]
+  Click Element  xpath=//li[@id="LI_STRATEGYDEMO_HR_LINK_PERFORMANCE_STRUCTURE"] 
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_LINKING"]
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANISATION_GOAL_ADMINISTRATION"]
+  Click Element  xpath=//li[@id="LI_MANAGE_OWN_CHAIN_ORG_GOALS"]
+  Click Element  xpath=//li[@id="LI_STRATEGY_DEMO_HR"]
+  Sleep   5
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  5
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Input text  ${Username}   Neha.Arr[58]@lato.com
+  Input text  ${Password}   Leal58ti0ga!58
+  Click button  Login 
+  Create New Person
+      Sleep  3
+  
+ 
+ Strategy Season Editor
+  [Documentation]   Add new season in Strategy Season Editor
+  [Tags]  AddNewSeason
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details 
+  Mouse Over  id=adminText 
+  Click Link  id=adminLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Element  xpath=//input[@value="Add season"]
+  Sleep  5
+  Input Text   ${NewSeasonData}     2016 Q5        
+  Click Element   xpath=//input[@id="btnSave"]
+  Unselect Frame
+  Unselect Frame
+      Sleep  3
+  
+Season In Use
+  [Documentation]   Select or UnSelect Season to Use
+  [Tags]   SeasonChangeToUse
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details 
+  Mouse Over  id=adminText 
+  Click Link  id=adminLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  #Wait Until Element Is Visible  xpath=//form[@id="ajax"]
+  ${DisabledCheckBox}=  CheckBox Should Not Be Selected  xpath=//input[@id="in_use.1471"]
+  @{checkboxes}=    Get WebElements    //input[@type="CHECKBOX"]
+  ${EnabledCheckBox}=  CheckBox Should Be Selected  xpath=//input[@id="in_use.1471"]  #CheckBox Should Be Selected  
+  ${CheckCheckBox}=  Check Check Box  xpath=//input[@id="in_use.1471"]
+  #:FOR  '${CheckCheckBox}'  IN  '@{checkboxes}'
+  Click Element   xpath=//label[@for="in_use.1471"]
+  Click Element   xpath=//input[@value="Save"]
+  Run Keyword If     '@{checkboxes}'
+  Log To Console   Check box is Selected
+  Run Keyword Unless   '@{checkboxes}'=='${DisabledCheckBox}'
+  Log To Console   Check box is UnSelected
+  Unselect Frame
+  Unselect Frame  
+      Sleep  3
+  
+Organization Structure
+  [Documentation]  Change Organization Structure
+  [Tags]  ChangeOrganizationStructure
+  Launch Lato URL
+  Enter authentication details 
+  Mouse Over  id=adminText 
+  Click Link  id=adminLink1
+    Maximize Browser Window
+  Sleep  3
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Element   xpath =//span[@id="optionsBtn"]
+  Sleep  2
+  Select From List  xpath=//select[@id="p_version_new"]    2016 Q2
+  #Sleep  2
+  #Select From List  xpath=//select[@id="structure_identifier"]    2016 Q4
+    Sleep  1
+    Click Element   xpath=//label[@id="p_actn_cp_label"]
+    Click Element   xpath=//input[@value="Copy to season"]
+  Unselect Frame
+  Unselect Frame 
+  Sleep  2
+  
+  Wait Until Element Is Visible  xpath=//div[@class="modal-footer"]
+  Click Button   OK
+  Log To Console  Data has been copied successfully
+    #   Sleep  3
+   
+ Theme Editor
+   [Documentation]  Change Theme Editor
+   [Tags]  ChangeThemeEditor
+   #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details 
+  Mouse Over  id=adminText 
+  Click Link  id=adminLink4
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Select From List  xpath=//select[@id="season"]    2016 Q5
+  Click Button  xpath=//input[@value="Add theme"] 
+  Sleep  5
+  Input Text  ${AddNewName}    Translation for Automation Test
+  Click Button   xpath=//input[@id="btnSave"]
+      Sleep  3
+  
+Company Editor 
+   [Documentation]  Change company Editor
+   [Tags]  ChangeCompanyEditor
+   Launch Lato URL
+  Maximize Browser Window
+  Enter authentication details 
+  Mouse Over  id=adminText 
+  Click Link  id=adminLink5
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Button  xpath=//input[@value="Add Company"] 
+  Sleep  5
+  Input Text  ${AddNewName}     Eliga
+  Click Button   xpath=//input[@id="btnSave"]
+  Sleep  7
+  Wait Until Element Is Visible  xpath=//table[@class="companyColor"]
+  ${rows}=  Get Matching Xpath Count  //table[@class="companyColor"]/tbody/tr/td/p[contains(@style,'text-align:left;')]
+  
+  #@{GetTextFromTable}=  Get WebElements	  xpath=//table[@class="companyColor"]/tbody/tr/td/p/span
+   ${rows}=  Convert To Integer	${rows}
+  ${rows}=  Set Variable  ${rows} 
+  Log To Console   ${rows}
+  ${index}=  Set Variable  1
+  :FOR  ${index}  IN RANGE  ${rows}
+  \  ${SpanValue}=  Get Text  //table[@class="companyColor"]
+  \  ${SpanSubValue}=  Get Substring  ${SpanValue}  -15
+  #@{GetTextFromTable}=  Get WebElements	  xpath=//table[@class="companyColor"]/tbody/tr/td/p/span
+   #${SpanValue}=  Convert To Integer	${SpanValue}
+  #${SpanValue}=  Set Variable  ${SpanValue - 1} 
+  
+  #\  Return From Keyword If   '${index}'=='${rows}'    ${index}
+  \  ${index}=  Set Variable  ${index + 1}
+  Log To Console   New Company '${SpanSubValue}' has been created
+  
+  Unselect Frame
+  Unselect Frame 
+     Sleep  3
+ 
+User Dashboard
+  [Documentation]  Create single user
+  [Tags]  NewUserCreation
+  Launch Lato URL
+  Enter authentication details 
+  Mouse Over  id=adminText 
+  Click Link  id=adminLink11
+    Maximize Browser Window
+  
+  Select Frame  name=full_content
+  Click Image   /images/NeoStrategy/new profile.png
+    Unselect Frame
+      Sleep  5
+  
+  Select Frame  id=popUpFrame
+  Sleep  5
+  Input Text   ${NewUsername}   roshini.balla4@gmail.com
+  Input Text   ${NewPassword}   Lealti0g3a!
+  Input Text   ${NewConformPassword}   Lealti0g3a!
+  Input Text   ${NewPersonSurname}   roshini
+  Input Text   ${NewPersonFirstname}  balla3
+  Input Text   ${NewPersonEmailAddress}  roshini.balla4@gmail.com
+  Click Element  xpath=//input[@id="save_button"]
+  Unselect Frame
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//div[@class="modal-footer"]
+    Click Button   OK
+    
+    Sleep  3
+    Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+    
+    Input text  ${Username}   roshini.balla4@gmail.com
+    Input text  ${Password}   Lealti0g3a!
+    Click button  Login 
+    Change Password
+    Sleep  2
+    Mouse Over  id=peopleText
+  Click Link  id=personalLink3
+    Select Frame  name=full_content
+    Select Frame  name=single_core_content
+     Choose File   xpath=//input[@name="p_filename"]     C:/Users/ganesh/Desktop/lato.PNG
+       Click Element   xpath=//input[@value="Upload"]
+      Element Should Be Disabled   id=reportsText
+     
+      Unselect Frame
+      Unselect Frame
+New User with no Priviledge
+  [Tags]  NoPriviledge
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Element Should Be Visible   xpath=//a[@id="peopleText"]    
+  Element Should Be Visible   xpath=//a[@id="goalsText"]
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Element Should Not Be Visible   xpath=//a[@id="adminText"]
+
+Upload Documents and Web URL
+  [Tags]  UploadDocuments
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Select Frame  id=full_content
+  Element Should Not Be Visible   xpath=//a[@id="ln2"]
+  Unselect Frame
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  
+  Enter authentication details
+  Mouse Over  id=adminText 
+  Click Link   id=adminLink3
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Click Element  xpath=//span[text()='roshini balla3 '] 
+  Sleep  2
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_STRATEGICDOCS_EDIT"]
+  Sleep   2
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Sleep  3
+  Mouse Over   id=goalsText
+  Click Link  id=goalsLink3 
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Click Link  Organization Documents
+  Select Frame  id=single_core_content
+  Sleep  2
+  Choose File  xpath=//input[@name="p_filename"]     C:/Users/ganesh/Desktop/lato.PNG
+  Sleep  2
+  Click Element   xpath=//input[@value="Upload"]
+  Unselect Frame
+  Unselect Frame  
+
+Create New User
+  [Tags]  CreateNewUser
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+    Maximize Browser Window
+  
+  Select Frame  id=full_content
+  Element Should Not Be Visible   xpath=//img[@src="/images/NeoStrategy/new profile.png"]
+  Unselect Frame
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Enter authentication details
+  Mouse Over  id=adminText 
+  Click Link   id=adminLink3
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Click Element  xpath=//span[text()='roshini balla3 '] 
+  Sleep  2
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_ACTIVATE_USERS"] 
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES"]    
+  Click Element  xpath=//li[@id="LI_CREATE_NEW_USER"]
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES_ON_CREATE"] 
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Sleep  3
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  name=full_content
+  Sleep  2
+  Click Image   /images/NeoStrategy/new profile.png
+  Element Should Not Be Visible   xpath=//input[@id="username"]
+  Element Should Not Be Visible   xpath=//input[@id="userpass.A"]
+  Element Should Not Be Visible   xpath=//input[@id="name_last"]
+  Element Should Not Be Visible   xpath=//input[@id="name_first"]
+  Element Should Not Be Visible   xpath=//input[@id="email"]
+  Unselect Frame
+  Sleep  3
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Enter authentication details
+  Mouse Over  id=adminText 
+  Click Link   id=adminLink3
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Click Element  xpath=//span[text()='roshini balla3 '] 
+  Sleep  2
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Click Element  xpath=//li[@id="LI_STRATEGY_DEMO_SELF_SERVICE"] 
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Sleep  3
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  name=full_content
+  Sleep  2
+  Click Image   /images/NeoStrategy/new profile.png
+  Sleep  2
+  Select Frame  id=single_core_content
+  Sleep  3
+  Input Text   ${NewUsername}   roshini.balla6@gmail.com
+  Input Text   ${NewPassword}   Lealti0g3a!
+  Input Text   ${NewConformPassword}   Lealti0g3a!
+  Input Text   ${NewPersonSurname}   roshini
+  Input Text   ${NewPersonFirstname}  balla6
+  Input Text   ${NewPersonEmailAddress}  roshini.balla6@gmail.com
+  Click Element  xpath=//input[@id="save_button"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Wait Until Element Is Visible  xpath=//div[@class="modal-footer"]
+  Click Button   OK
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+
+Roles Granting For User Priviledge Check
+  [Tags]  Rolegranting
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Element Should Not Be Visible   xpath=//img[src="/images/NeoStrategy/facelift/list_m_priv.png"]
+  Unselect Frame
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Enter authentication details
+  Mouse Over  id=adminText 
+  Click Link   id=adminLink3
+  Maximize Browser Window
+  Select Frame  id=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Click Element  xpath=//span[text()='roshini balla3 '] 
+  Sleep  2
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Sleep  3
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Element Should Be Visible   xpath=//img[@src="/images/NeoStrategy/facelift/list_p_priv.png"]
+  Unselect Frame
+  Unselect Frame
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+  
+Role Granting For Users during create privilege Test
+  [Tags]  RolegrantingDuringCreate
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Sleep  2
+    Select Frame  name=full_content
+    Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_GRANT_ROLES_ON_CREATE"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  3
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Maximize Browser Window
+  Select Frame  name=full_content
+  Click Image   /images/NeoStrategy/new profile.png
+  Select Frame  id=single_core_content
+  Sleep  2
+  Element Should Be Visible   xpath=//img[@src="/images/NeoStrategy/facelift/list_p_priv.png"]
+  Unselect Frame
+  Unselect Frame
+  Click Image  /images/NeoStrategy//new_nav/Button_Logout.png
+ 
+  
+
+Edit Ogranizational Structure Privilege 
+  [Tags]  EditOgranizationalGoals
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Maximize Browser Window
+  Mouse Over  id=adminText 
+  Sleep  2
+  Element Should Not Be Visible   xpath=//a[@id="adminLink1"]
+  Element Should Not Be Visible   xpath=//a[@id="adminLink4"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANIZATION_EDIT"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=adminText 
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="adminLink1"]
+  Element Should Be Visible   xpath=//a[@id="adminLink4"]
+  
+Link Users To Ogranization Structure Privilege 
+  [Tags]  LinkUsersToOgranizationStructure
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Maximize Browser Window
+  Sleep  2
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Element Should Not Be Visible   xpath=//Select[@id="performance_structure.2016 Q2"]
+  Element Should Not Be Visible   xpath=//Select[@id="performance_structure.2016 Q3"]    
+  Element Should Not Be Visible   xpath=//Select[@id="performance_structure.Circket"]    
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Click Element  xpath=//li[@id="LI_STRATEGYDEMO_HR_LINK_PERFORMANCE_STRUCTURE"]    
+  Click Element  //input[@value="Save"]
+  Sleep  2
+  Unselect Frame
+  Unselect Frame
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Element Should Be Visible   xpath=//Select[@id="performance_structure.2016 Q2"]
+  Element Should Be Visible   xpath=//Select[@id="performance_structure.2016 Q3"]    
+  Element Should Be Visible   xpath=//Select[@id="performance_structure.Circket"]
+  Unselect Frame
+  Unselect Frame
+  
+Manage All Ogranization Goals Privilege 
+  [Tags]  ManageAllOgranizationGoals
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Maximize Browser Window
+  Mouse Over  id=goalsText 
+  Sleep  2
+  Element Should Not Be Visible   xpath=//a[@id="goalsLink1"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_RASKONE_GOAL_MANAGER"]    
+  Click Element  //input[@value="Save"]
+  
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="goalsLink1"]
+  
+Manage Own Ogranization Goals Privilege 
+  [Tags]  ManageOwnOgranizationGoals
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Maximize Browser Window
+  Mouse Over  id=goalsText 
+  Sleep  2
+  Element Should Not Be Visible   xpath=//a[@id="goalsLink1"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_PERFORMANCE_ORGANISATION_GOAL_ADMINISTRATION"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="goalsLink1"]  
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Element Should Not Be Visible   xpath=//Select[@id="goal_matrix_manager"]
+  Unselect Frame
+   
+Goal Deletion Privilege 
+  [Tags]  GoalDeletion
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Maximize Browser Window
+  Mouse Over  id=goalsText 
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Sleep  2
+  Element Should Not Be Visible   xpath=//img[@src="/images/NeoStrategy/trash_header.png"]
+  Unselect Frame  
+  Unselect Frame  
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_DELETE_GOAL"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Mouse Over  id=goalsText
+  Click Link  id=goalsLink1
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Element Should Be Visible   xpath=//img[@src="/images/NeoStrategy/trash_header.png"]
+  Unselect Frame   
+  Unselect Frame   
+  
+Goal Review 
+  [Tags]  GoalReview
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_REVIEW"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink7"]
+  
+Goal Status 
+  [Tags]  GoalStatus
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_STATUS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink1"]  
+  
+Goal Linking
+  [Tags]  GoalLinking
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_GOAL_LINKING"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink2"]  
+
+
+Theme Report
+  [Tags]  TheameReport
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_BSC"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink3"]  
+
+
+Actions
+  [Tags]  Actions
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Maximize Browser Window
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_ACTIONS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink4"]  
+  
+
+1-pager
+  [Tags]  Actions
+  Launch Lato URL
+  Input text  ${Username}   roshini.balla4@gmail.com
+  Input text  ${Password}   Ela$ito06
+  Click button  Login 
+  Maximize Browser Window
+  Element Should Not Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=personal 
+  Click Link  id=personalLink2
+  Select Frame  name=full_content
+  Select Frame  id=single_core_content
+  Click Image   /images/NeoStrategy/facelift/list_p_priv.png
+  Sleep  2
+  Click Element  xpath=//li[@id="LI_REPORT_ACTIONS"]    
+  Click Element  //input[@value="Save"]
+  Unselect Frame
+  Unselect Frame
+  Sleep  2
+  Element Should Be Visible   xpath=//a[@id="reportsText"]
+  Mouse Over  id=reportsText
+  Sleep  3
+  Element Should Be Visible   xpath=//a[@id="reportLink4"]    
+
+LI_REPORT_STRATEGY_VISION
+
+ 
+ 
+  
+  
+  
+New Group Users
+  [Tags]  NewGroupUsers
+  #Launch Lato URL
+  #Maximize Browser Window
+  #Enter authentication details 
+  Mouse Over  id=adminText 
+  Click Link  id=adminLink11
+  Select Frame  name=full_content
+  Click Image   /images/NeoStrategy/add_new_users.png
+    Unselect Frame
+      Sleep  5
+  
+  Select Frame  id=popUpFrame
+  Wait Until Element Is Visible  xpath=//form[@id="ajax"]
+  Sleep  5
+  Input Text   ${newgroupUserFirstName}   Susanna
+  #Select Frame  id=single_core_content
+  
