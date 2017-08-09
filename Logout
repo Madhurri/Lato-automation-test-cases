@@ -1,0 +1,37 @@
+***Settings***
+Library  Selenium2Library
+***Variable***
+${url}   http://softability.fi/en/  
+***Keywords***
+***TestCases***
+Lauch webpage
+  Open Browser  ${url}  browser=chrome
+  Sleep  2s
+  Maximize Browser Window
+  Click Link   http://softability.fi/en/services/
+    Sleep  2s
+  
+  Click Link   http://softability.fi/en/industries/
+    Sleep  2s
+  
+  Click Link   http://softability.fi/en/customers/
+    Sleep  2s
+  
+   Click Link  http://softability.fi/en/company/
+     Sleep  2s
+   
+   Click Link   http://softability.fi/en/career/
+     Sleep  2s
+   
+   Click Link   http://softability.fi/en/news/
+     Sleep  2s
+   
+   Click Link   http://softability.fi/en/contact-us/
+   Sleep  2s
+      Sleep  2s
+     Click Link   http://softability.fi/en/services/
+            Execute JavaScript    window.scrollTo(0, document.body.scrollHeight)
+   
+   Wait Until Element is Visible   xpath=//div[@class="content-lift-container content-width-50 animated anim-right fadeInRight"]
+   Click Element  xpath=//a[@class="button-blue clickable"]
+   
